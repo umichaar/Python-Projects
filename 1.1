@@ -1,0 +1,25 @@
+#get user input
+name=input('What is your name?')
+assignment=int(input('enter points for assignment>'))
+exam=int(input('enter points for exam>'))
+project=int(input('enter points for project>'))
+#calculate
+total=assignment+exam+project
+percent=total/500
+p=percent*100
+print(p,'%')
+#or you can use the following way to formatting a number into percentage, will not 
+change percent
+print(format(percent, '.2%'))
+      
+#or      
+txt = 'percent is {:.2%}' #another way for formating
+print(txt.format(percent))
+#deciding messages and output
+if percent>=.85:
+    print('Good job! Keep up the good work!')
+elif percent>=.60:
+    print('Work harder!')
+else:
+    print('Get help!')
+#end of program
