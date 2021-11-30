@@ -1,0 +1,79 @@
+#using list of dictionary
+import sys
+def grade(percent):
+    if percent>=90:
+        g='A'
+    elif percent>=80:
+        g='B'
+    elif percent>=70:
+        g='C'
+    elif percent>=60:
+        g='D'
+    else:
+        g='E'
+    return g
+fname=input('the data file name>')
+fname=fname.strip()
+try:
+    fhand=open(fname) #open the file
+except:
+    print('No such file.')
+    sys.exit()
+    
+sf=open(fname)
+students=list() #the list of students
+studentsPerc=list() #the list of students for sorting
+totalStu=0
+for s in sf:
+    r=s.split(',')
+    #calculation for the student
+    totalStu=float(r[1])+float(r[2])+float(r[3])
+    percent=totalStu/500*100
+    #get the letter grade for the student
+    lettergrade=grade(percent)
+    #each student is a dictionary
+    students.append({'name':r[0],'assignment':float(r[1]), 
+'exam':float(r[2]),'project':float(r[3]), 
+                     'percent':percent, 'letter':lettergrade})
+    #each student is a tuple, the first element in the tuple is the percentage
+    studentsPerc.append((percent, r[0],float(r[1]), 
+float(r[2]),float(r[3]),lettergrade))   
+    
+#print(students) #you can print out the content of the list and check if the 
+reading is correct
+#print(studentsPerc)
+sf.close()
+#output to screen
+print('Number of students:',len(students))
+highPerc=0
+index_perc=0
+highCount=0
+total=0
+#go through the list of students
+for i in range(0, len(students)):
+    
+    if highPerc==None or students[i]['percent'] > highPerc :
+        highPerc = students[i]['percent']
+        index_perc = i
+    if students[i]['letter'] == 'A':
+        highCount += 1
+    total=total+students[i]['percent'] #get the total of all students' percentage
+#sorting
+#using tuple for each student, sorting is very easy
+studentsPerc.sort() #asscending
+#studentsPerc.sort(reverse=True) #decending
+#output to screen
+print('===Summary===')        
+print(students[index_perc]['name'], 'has the highest percentage', "%.2f"%highPerc, 
+'%')
+print('Number of A students is ', highCount)
+print('Class average is', total/len(students))
+#output to file
+xfile=open('sorted.txt','w')
+#write each tuple of the list to the file
+for p, stu, a, e, pr, l in studentsPerc:
+    xfile.write(stu+'\t'+str(a)+'\t'+str(e)+'\t'+str(pr)+'\t'+str("%.2f"%p)+'%\
+t'+l+'\n')
+xfile.write('by Maggie Guo, fall 2021')
+xfile.close()
+print('finish writing.')
