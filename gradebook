@@ -1,0 +1,53 @@
+#a function to assign letter grade and print out it
+def grade(percent):
+    if percent>=.90:
+        g='A'
+    elif percent>=.80:
+        g='B'
+    elif percent>=.70:
+        g='C'
+    elif percent>=.60:
+        g='D'
+    else:
+        g='E'
+    print('the grade is', g)
+stu_list=['Max', 'Jack', 'Joey']
+high=None
+sum=0
+c=0
+#get user input
+for stu in stu_list:
+    
+    print ('\nFor', stu)
+    try:
+        assignment=int(input('enter points for assignment>'))
+        exam=int(input('enter points for exam>'))
+        project=int(input('enter points for project>'))
+    
+        #calculate
+        total=assignment+exam+project
+        
+        percent=total/500
+        txt = "percent is {:.2%}" # for formating
+        print(txt.format(percent))
+    
+        c=c+1
+        sum+=percent # or you can write sum=sum+percent
+        if high==None:
+            high=percent
+        if percent>high:
+            high=percent
+    #deciding letter grade and output using the function
+        grade(percent)
+    except:
+        print('input is not right')
+        continue
+if c==0:
+    print('no student') #to void devided by 0 problem
+else:
+    average=sum/c
+    print('number of students:', c)
+    print('average percent is {:.2%}'.format(average))
+    print('The highest percent is {:.2%}'.format(high))
+#end of program
+print('Thank you for using the gradebook made by Adam!')
